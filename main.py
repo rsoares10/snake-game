@@ -1,6 +1,13 @@
 from turtle import Screen, Turtle
 
 
+def turtle_builder() -> Turtle:
+    t = Turtle()
+    t.shape("square")
+    t.color("#FFFFFF")
+    return t
+
+
 def screen_builder() -> Screen:
     s = Screen()
     s.setup(width=600, height=600)
@@ -9,7 +16,9 @@ def screen_builder() -> Screen:
     return s
 
 
-def main():
+def main() -> None:
+    t = turtle_builder()
+
     s = screen_builder()
     s.exitonclick()
 
