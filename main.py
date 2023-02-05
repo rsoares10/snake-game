@@ -1,5 +1,6 @@
 import time
 from turtle import Screen
+from src.food import Food
 
 from src.snake import Snake
 
@@ -23,11 +24,15 @@ def main() -> None:
     s.onkey(snake.left, "Left")
     s.onkey(snake.right, "Right")
 
+    food = Food()
+
     game_is_on = True
     while game_is_on:
         s.update()
         time.sleep(0.1)
         snake.move()
+        if snake.head.distance() < 15:
+            food.set_random_pos()
 
     s.exitonclick()
 
