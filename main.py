@@ -17,6 +17,12 @@ def main() -> None:
     snake = Snake()
     s = screen_builder()
 
+    s.listen()
+    s.onkey(snake.up, "Up")
+    s.onkey(snake.down, "Down")
+    s.onkey(snake.left, "Left")
+    s.onkey(snake.right, "Right")
+
     game_is_on = True
     while game_is_on:
         s.update()
