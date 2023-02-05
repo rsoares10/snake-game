@@ -1,11 +1,12 @@
 import time
 from turtle import Screen
-from src.food import Food
 
+from src.food import Food
+from src.scoreboard import ScoreBoard
 from src.snake import Snake
 
 
-def screen_builder() -> Screen:
+def build_screen() -> Screen:
     s = Screen()
     s.setup(width=600, height=600)
     s.bgcolor("#000000")
@@ -15,26 +16,26 @@ def screen_builder() -> Screen:
 
 
 def main() -> None:
+    screen = build_screen()
     snake = Snake()
-    s = screen_builder()
-
-    s.listen()
-    s.onkey(snake.up, "Up")
-    s.onkey(snake.down, "Down")
-    s.onkey(snake.left, "Left")
-    s.onkey(snake.right, "Right")
-
     food = Food()
+    score_board = ScoreBoard()
+
+    screen.listen()
+    screen.onkey(snake.up, "Up")
+    screen.onkey(snake.down, "Down")
+    screen.onkey(snake.left, "Left")
+    screen.onkey(snake.right, "Right")
 
     game_is_on = True
     while game_is_on:
-        s.update()
+        screen.update()
         time.sleep(0.1)
         snake.move()
-        if snake.head.distance() < 15:
+        if snake.head.distance(food) < 15:
             food.set_random_pos()
-
-    s.exitonclick()
+            score_board.increase_score()
+    screen.exitonclick()
 
 
 if __name__ == "__main__":
