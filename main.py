@@ -15,6 +15,14 @@ def build_screen() -> Screen:
     return s
 
 
+def has_hit_wall(s: Snake) -> bool:
+    hit_right_wall = s.head.xcor() > 280
+    hit_left_wall = s.head.xcor() < -280
+    hit_top_wall = s.head.ycor() > 280
+    hit_bottom_wall = s.head.ycor() < -280
+    return hit_bottom_wall or hit_left_wall or hit_top_wall or hit_right_wall
+
+
 def main() -> None:
     screen = build_screen()
     snake = Snake()
@@ -35,6 +43,9 @@ def main() -> None:
         if snake.head.distance(food) < 15:
             food.set_random_pos()
             score_board.increase_score()
+        if has_hit_wall(snake):
+            game_is_on = False
+            score_board.game_over()
     screen.exitonclick()
 
 
