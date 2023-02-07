@@ -23,6 +23,14 @@ def has_hit_wall(s: Snake) -> bool:
     return hit_bottom_wall or hit_left_wall or hit_top_wall or hit_right_wall
 
 
+def has_hit_tail(s: Snake) -> bool:
+    for seg in s.body.segments:
+        if seg == s.head:
+            ...
+        elif s.head.distance(seg) < 10:
+            return True
+
+
 def main() -> None:
     screen = build_screen()
     snake = Snake()
@@ -45,6 +53,9 @@ def main() -> None:
             food.set_random_pos()
             score_board.increase_score()
         if has_hit_wall(snake):
+            game_is_on = False
+            score_board.game_over()
+        if has_hit_tail(snake):
             game_is_on = False
             score_board.game_over()
     screen.exitonclick()
