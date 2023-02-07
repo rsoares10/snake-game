@@ -24,10 +24,8 @@ def has_hit_wall(s: Snake) -> bool:
 
 
 def has_hit_tail(s: Snake) -> bool:
-    for seg in s.body.segments:
-        if seg == s.head:
-            ...
-        elif s.head.distance(seg) < 10:
+    for seg in s.body.segments[1:]:
+        if s.head.distance(seg) < 10:
             return True
 
 
