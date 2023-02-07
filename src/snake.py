@@ -20,6 +20,9 @@ class Snake:
             self.body.segments[seg_num].goto(new_x, new_y)
         self.body.segments[0].forward(MOVE_DISTANCE)
 
+    def extend(self) -> None:
+        self.body.add_segment(self.body.segments[-1].position())
+
     def left(self) -> None:
         if self.head.heading() != RIGHT:
             self.head.setheading(180)
@@ -39,19 +42,17 @@ class Snake:
 
 class Body:
     def __init__(self) -> None:
-        self.segments: list[Turtle] = self.build_body()
+        self.segments = []
+        self.build_body()
 
-    def build_body(self) -> list[Turtle]:
-        segments = []
+    def build_body(self) -> None:
         for pos in STARTING_POSITIONS:
-            s = self.build_segment()
-            s.goto(pos)
-            segments.append(s)
-        return segments
+            self.add_segment(pos)
 
-    def build_segment(self) -> Turtle:
+    def add_segment(self, position) -> None:
         s = Turtle()
         s.shape("square")
         s.color("#FFFFFF")
         s.penup()
-        return s
+        s.goto(position)
+        self.segments.append(s)

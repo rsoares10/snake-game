@@ -41,6 +41,7 @@ def main() -> None:
         time.sleep(0.1)
         snake.move()
         if snake.head.distance(food) < 15:
+            snake.extend()
             food.set_random_pos()
             score_board.increase_score()
         if has_hit_wall(snake):
